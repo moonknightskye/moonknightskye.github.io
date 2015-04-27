@@ -1,1 +1,175 @@
-hello flappy!
+<!DOCTYPE HTML> 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+<title>FLAPPY BIRD</title>
+<script src="js/jquery-2.0.3.js"></script>
+<script src="js/mobile-utility.js"></script>
+<script src="js/mobile-css3.js"></script>
+<script src="js/flappybird/FlappyBird.js"></script>
+<script src="js/flappybird/Birdy.js"></script>
+<script src="js/flappybird/Floor.js"></script>
+<script src="js/flappybird/Pipe.js"></script>
+
+<script type="text/javascript">
+
+$(window).bind("load",function(){
+	
+	game = new CSS3Game({
+		bgcolor: "black",
+		fps: 8,
+		frame: { x:0, y:0, width:160, height:568 }
+	});
+	
+	UTILITY.setGame( game );
+	
+	var background = new Sprite({
+		name:'bg',
+		src:'images/flappybird.png',
+		size: 1.13,
+		zindex: 0,
+		frame:{x:80, y:128, width:143, height:256 }
+	});
+	
+	var floor01 = new Sprite({
+		name:'floor',
+		src:'images/flappybird.png',
+		size: 1.13,
+		zindex: 3,
+		frame:{ x:236, y:342}, //224 ~ 236
+		status:"idle",
+		current:0,
+		actions:{
+			idle:[
+					{
+						map:{ x:-146, y:0, width:153, height:56 }
+					}
+			      ]
+		},
+		extend:{
+			name:"Floor",
+			param :{
+				speed:10
+			}
+		}
+	});
+	
+	var char01 = new Sprite({
+		name:'char01',
+		src:'images/flappybird.png',
+		size: 1,
+		zindex: 4,
+		frame:{ x:35, y:95, width: 18, height:13 },
+		status:"walk_right",
+		current:0,
+		actions:{
+			walk_right:[
+					{
+						map:{ x:-264, y:63, width:18, height:13 }
+					},{
+						map:{ x:-264, y:89, width:18, height:13 }
+					},{
+						map:{ x:-223, y:123, width:18, height:13 }
+					} 
+				]
+		},
+		extend:{
+			name:"Birdy",
+			param :{
+				speed:-25,
+				fallanim: "ease-in"
+			}
+		}
+	});
+	
+	var upperPipe = new Sprite({
+		name:'upper_pipe',
+		src:'images/flappybird.png',
+		size: 1.13,
+		zindex: 1,
+		frame:{ x:389, y:55 }, //224 ~ 236
+		status:"idle",
+		current:0,
+		actions:{
+			idle:[
+					{
+						map:{ x:-302, y:5, width:28, height:130 }
+					}
+				 ]
+		},
+		extend:{
+			name:"Pipe",
+			param :{
+				speed:5
+			}
+		}
+	});
+	
+	var lowerPipe = new Sprite({
+		name:'lower_pipe',
+		src:'images/flappybird.png',
+		size: 1.13,
+		zindex: 2,
+		frame:{ x:389, y:260}, //224 ~ 236
+		status:"idle",
+		current:0,
+		actions:{
+			idle:[
+					{
+						map:{ x:-330, y:0, width:28, height:130 }
+					}
+				 ]
+		},
+		extend:{
+			name:"Pipe",
+			param :{
+				speed:5
+			}
+		}
+	});
+	
+	var scene01 = new Scene({
+		name: "battlefield",
+		frame: { x:0, y:0, width:160, height:256 },
+		bgcolor: "transparent",
+		extend:{
+			name:"FlappyBird",
+			param :{
+				speed:-25
+			}
+		}
+	});
+	
+	var scene02 = new Scene({
+		name: "controller",
+		frame: { x:0, y:256, width:160, height:40 },
+		bgcolor: "black"
+	});
+	
+  	scene01.addSprite( background );
+  	scene01.addSprite( char01 );
+	scene01.addSprite( floor01 );
+	scene01.addSprite( upperPipe );
+	scene01.addSprite( lowerPipe );
+	game.addScene( scene01 );
+	//game.addScene( scene02 );
+	game.start();
+	
+	mato = char01;
+});
+
+
+//generate the opening screen here
+</script>
+</head> 
+
+<body bgcolor='gray' style="margin:0px">
+
+<div id="css3game">
+</div>
+
+<span id="matotext">CSS3 Animations</span>
+<div id="woot"></div>
+</body>
+</html>
