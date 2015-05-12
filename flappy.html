@@ -16,6 +16,9 @@
 
 $(window).bind("load",function(){
 	
+	//prevent page scrolling
+	$('body').bind('touchmove', function(e){e.preventDefault()});
+	
 	game = new CSS3Game({
 		bgcolor: "black",
 		fps: 8,
