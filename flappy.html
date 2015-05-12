@@ -18,6 +18,7 @@ $(window).bind("load",function(){
 	
 	//prevent page scrolling
 	$('body').bind('touchmove', function(e){e.preventDefault()});
+	window.onscroll = function () { window.scrollTo(0, 0); };
 	
 	game = new CSS3Game({
 		bgcolor: "black",
